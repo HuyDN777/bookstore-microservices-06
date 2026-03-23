@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'ship_service',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': 'host.docker.internal',
+        'HOST': 'db-server',
         'PORT': '3306',
     }
 }

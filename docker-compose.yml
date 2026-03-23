@@ -3,9 +3,10 @@ version: '3.8'
 services:
   api-gateway:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: api-gateway
     build: ./api-gateway
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8000:8000"
     volumes:
@@ -13,9 +14,10 @@ services:
 
   auth-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: auth-service
     build: ./auth-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8008:8000"
     volumes:
@@ -23,9 +25,10 @@ services:
 
   book-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: book-service
     build: ./book-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8003:8000"
     volumes:
@@ -33,9 +36,10 @@ services:
 
   cart-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: cart-service
     build: ./cart-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8002:8000"
     volumes:
@@ -43,9 +47,10 @@ services:
 
   catalog-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: catalog-service
     build: ./catalog-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8009:8000"
     volumes:
@@ -53,9 +58,10 @@ services:
 
   comment-rate-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: comment-rate-service
     build: ./comment-rate-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8007:8000"
     volumes:
@@ -63,9 +69,10 @@ services:
 
   customer-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: customer-service
     build: ./customer-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8001:8000"
     volumes:
@@ -73,9 +80,10 @@ services:
 
   manager-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: manager-service
     build: ./manager-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8010:8000"
     volumes:
@@ -83,9 +91,10 @@ services:
 
   order-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: order-service
     build: ./order-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8004:8000"
     volumes:
@@ -93,9 +102,10 @@ services:
 
   pay-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: pay-service
     build: ./pay-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8005:8000"
     volumes:
@@ -103,9 +113,10 @@ services:
 
   recommender-ai-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: recommender-ai-service
     build: ./recommender-ai-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8011:8000"
     volumes:
@@ -113,9 +124,10 @@ services:
 
   ship-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: ship-service
     build: ./ship-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8006:8000"
     volumes:
@@ -123,10 +135,27 @@ services:
 
   staff-service:
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "db-server:host-gateway"
     container_name: staff-service
     build: ./staff-service
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8012:8000"
     volumes:
       - ./staff-service:/app
+    
+  # Thêm service này vào chung mâm với các microservice khác
+  db-server:
+    image: mysql:8.0  # Thay bằng postgres nếu dự án của bạn xài PostgreSQL
+    container_name: db-server
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456" # Điền ĐÚNG mật khẩu bạn đang setup trong file settings.py ở máy local
+      # Nếu có nhiều database rỗng cần tạo sẵn, bạn có thể tạo thủ công sau.
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+# Khối volumes này nằm ở cuối cùng file, sát lề trái hoàn toàn
+volumes:
+  db_data:

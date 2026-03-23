@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'api_gateway',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': 'host.docker.internal',
+        'HOST': 'db-server',
         'PORT': '3306',
     }
 }
