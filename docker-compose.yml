@@ -1,0 +1,132 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: api-gateway
+    build: ./api-gateway
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api-gateway:/app
+
+  auth-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: auth-service
+    build: ./auth-service
+    ports:
+      - "8008:8000"
+    volumes:
+      - ./auth-service:/app
+
+  book-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: book-service
+    build: ./book-service
+    ports:
+      - "8003:8000"
+    volumes:
+      - ./book-service:/app
+
+  cart-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: cart-service
+    build: ./cart-service
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./cart-service:/app
+
+  catalog-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: catalog-service
+    build: ./catalog-service
+    ports:
+      - "8009:8000"
+    volumes:
+      - ./catalog-service:/app
+
+  comment-rate-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: comment-rate-service
+    build: ./comment-rate-service
+    ports:
+      - "8007:8000"
+    volumes:
+      - ./comment-rate-service:/app
+
+  customer-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: customer-service
+    build: ./customer-service
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./customer-service:/app
+
+  manager-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: manager-service
+    build: ./manager-service
+    ports:
+      - "8010:8000"
+    volumes:
+      - ./manager-service:/app
+
+  order-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: order-service
+    build: ./order-service
+    ports:
+      - "8004:8000"
+    volumes:
+      - ./order-service:/app
+
+  pay-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: pay-service
+    build: ./pay-service
+    ports:
+      - "8005:8000"
+    volumes:
+      - ./pay-service:/app
+
+  recommender-ai-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: recommender-ai-service
+    build: ./recommender-ai-service
+    ports:
+      - "8011:8000"
+    volumes:
+      - ./recommender-ai-service:/app
+
+  ship-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: ship-service
+    build: ./ship-service
+    ports:
+      - "8006:8000"
+    volumes:
+      - ./ship-service:/app
+
+  staff-service:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: staff-service
+    build: ./staff-service
+    ports:
+      - "8012:8000"
+    volumes:
+      - ./staff-service:/app
